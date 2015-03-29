@@ -1,13 +1,4 @@
-/*Au chargement :
-
-Si fichier content.html, charger le contenu dans le body --> fait
-Sinon, créé content à partir du body et effacer body. --> à faire plus tard
-
-À l’enregistrement :
-
-remove file content.html avec API github
-enregistrer le contenu du body avec write file dans content.html avec API github*/        
-
+      
 
 
 window.onload = function(event){
@@ -18,26 +9,19 @@ window.onload = function(event){
 
 function addEditable(){
 
-           
+     
+    $("body").prepend($("<div id='editable'>Modifier</div>"));
     $("#editable").on( "click", function() {
         if($("#editable").css("color")=="rgb(255, 0, 0)"){
               $("body").children().attr("contenteditable", "false");
-    //        $(".bloc").attr("contenteditable", "false");
-    //        $(".intro").attr("contenteditable", "false");
-    //        $("h1").attr("contenteditable", "false");
-    //        $(".author").attr("contenteditable", "false");
             $("#editable").css("color", "grey").html("Modifier");
-            saveToGitHub();
+//            saveToGitHub();
             //postDataToGoogle(0);
         }
         else{
 
             $("#editable").css("color", "red").html("Enregistrer");
               $("body").children().attr("contenteditable", "true");
-    //        $(".bloc").attr("contenteditable", "true");
-    //        $("h1").attr("contenteditable", "true");
-    //        $(".author").attr("contenteditable", "true");
-    //        $(".intro").attr("contenteditable", "true");
         }
 
     });    
@@ -55,8 +39,31 @@ function addEditable(){
 
 
 function saveToGitHub(){
+    
+    var username="viaup";
+    var reponame= "tweety-ediable";
+//    var doc = $(document);
 
+    
+    var github = new Github({
+      username: "viaup",
+      password: "4cX8ouFieinrq",
+      auth: "basic"
+    });
+    
+    var repo = github.getRepo(username, reponame);
+    
+//    repo.remove('gh-pages', 'test.html', function(err) {console.log("remove avec succès si pas d'erreur : " + err)});
+    
+    repo.write('gh-pages', 'test.html', 'un test yo', 'YOUR_COMMIT_MESSAGE', function(err) {console.log("write avec succès si pas d'erreur : " + err)});
 
+    
+    /*
+
+À l’enregistrement :
+
+remove file html.html avec API github
+enregistrer le contenu du body avec write file dans content.html avec API github*/  
 
 }
 
