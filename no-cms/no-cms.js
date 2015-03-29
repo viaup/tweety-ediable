@@ -15,7 +15,7 @@ function addEditable(){
         if($("#editable").css("color")=="rgb(255, 0, 0)"){
               $("body").children().attr("contenteditable", "false");
             $("#editable").css("color", "grey").html("Modifier");
-//            saveToGitHub();
+           saveToGitHub();
             //postDataToGoogle(0);
         }
         else{
@@ -42,7 +42,10 @@ function saveToGitHub(){
     
     var username="viaup";
     var reponame= "tweety-ediable";
-//    var doc = $(document);
+    var content = document.documentElement.outerHTML;
+//    var contentString = JSON.stringify(content);
+    var contentEncoded = unescape( encodeURIComponent(content)) ;
+//    console.log(contentEncoded);
 
     
     var github = new Github({
@@ -53,9 +56,18 @@ function saveToGitHub(){
     
     var repo = github.getRepo(username, reponame);
     
-//    repo.remove('gh-pages', 'test.html', function(err) {console.log("remove avec succès si pas d'erreur : " + err)});
+    repo.remove('gh-pages', 'test.html', function(err) {
+        
+        repo.write('gh-pages', 'test.html', contentEncoded, 'YOUR_COMMIT_MESSAGE', function(err) {console.log("write avec succès si pas d'erreur : " + err)});    
+        console.log("remove avec succès si pas d'erreur : " + err)
     
-    repo.write('gh-pages', 'test.html', 'un test yo', 'YOUR_COMMIT_MESSAGE', function(err) {console.log("write avec succès si pas d'erreur : " + err)});
+    
+    });
+    
+    
+    
+//    
+//    repo.write('gh-pages', 'test.html', doc, 'YOUR_COMMIT_MESSAGE', function(err) {console.log("write avec succès si pas d'erreur : " + err)});
 
     
     /*
