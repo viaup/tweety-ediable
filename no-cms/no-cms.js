@@ -50,7 +50,7 @@ function saveToGitHub(){
     
     var github = new Github({
       username: "viaup",
-      password: "4cX8ouFieinrq",
+      password: "***",
       auth: "basic"
     });
     
