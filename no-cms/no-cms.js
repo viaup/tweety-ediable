@@ -45,7 +45,7 @@ function saveToGitHub(){
     var content = document.documentElement.outerHTML;
 //    var contentString = JSON.stringify(content);
     var contentEncoded = unescape( encodeURIComponent(content)) ;
-//    console.log(contentEncoded);
+    console.log(contentEncoded);
 
     
     var github = new Github({
