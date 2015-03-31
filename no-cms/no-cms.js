@@ -12,6 +12,10 @@ window.onload = function(event){
               $("body").children().attr("contenteditable", "false");
             $( ".modalDialog" ).removeAttr("contenteditable");
             $( "#contextMenu" ).removeAttr("contenteditable");
+            $( "#menu" ).removeAttr("contenteditable");
+            $( "#hostScriptPub" ).removeAttr("contenteditable");
+            $( "#hostNavigation" ).removeAttr("contenteditable");
+            $( "#hostNavSticky" ).removeAttr("contenteditable");
             $("#editable").css("color", "grey").html("Modifier");
            saveToGitHub();
         }
@@ -21,6 +25,10 @@ window.onload = function(event){
               $("body").children().attr("contenteditable", "true");
             $( ".modalDialog" ).removeAttr("contenteditable");
             $( "#contextMenu" ).removeAttr("contenteditable");
+            $( "#menu" ).removeAttr("contenteditable");
+            $( "#hostScriptPub" ).removeAttr("contenteditable");
+            $( "#hostNavigation" ).removeAttr("contenteditable");
+            $( "#hostNavSticky" ).removeAttr("contenteditable");
              
         }
 
