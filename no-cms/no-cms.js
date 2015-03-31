@@ -59,7 +59,7 @@ function saveToGitHub(){
     
     var repo = github.getRepo(username, reponame);
     
-    var commitMsg = prompt("Sauvegarder sous :");
+    var commitMsg = prompt("Message de sauvegarde :");
 //    repo.remove('gh-pages', 'test.html', function(err) {  
 //    repo.write('gh-pages', 'test.html', contentEncoded, commitMsg, function(err) {console.log("write avec succès si pas d'erreur : " + err)});    
     

@@ -159,10 +159,11 @@ input{
 #editable{
     position:fixed;
     background-color: white;
-    padding-left: 20px;
+    font-size: 20px;
+    padding:10px 20px 5px 20px;
     top:50px;
     left:0px;
-    width:100px;
+    width:150px;
     z-index: 999;
 }
 
