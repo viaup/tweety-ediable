@@ -1,39 +1,38 @@
-  <div style="display:none; "   id="contextMenu">
-        
-            <div class="ContextTitle">Ajouter :</div>
-            <div class="ContextItem"><a href="#openImage" class="ContextLink">Image</a></div>
-            <div class="ContextItem"><a href="#openVideo" class="ContextLink">Video</a></div>
-            <div class="ContextItem"><a href="#openBarChartH" class="ContextLink">Diagramme horizontal</a></div>
-  </div> 
+<div style="display:none; "   id="contextMenu">
 
-
+    <div class="ContextTitle">Ajouter :</div>
+    <div class="ContextItem"><a href="#openImage" class="ContextLink">Image</a></div>
+    <div class="ContextItem"><a href="#openVideo" class="ContextLink">Video</a></div>
+    <div class="ContextItem"><a href="#openBarChartH" class="ContextLink">Diagramme horizontal</a></div>
+</div>
 
 <div id="openImage" class="modalDialog">
-	<div>
-		<a href="#close" title="Close" class="close">X</a>
-		<h2>Nouvelle image</h2>
-		<p>Entrer le chemin de l'image :</p>
-		<input type="text" id="imageInput" placeholder="chemin/de/l'image">
-		<div id="previewImage"></div>
-	</div>
+   <div>
+      <a href="#close" title="Close" class="close">X</a>
+      <h2>Nouvelle image</h2>
+      <p>Entrer le chemin de l'image :</p>
+      <input type="text" class="dialogInput" id="imageInput" placeholder="chemin/de/l\'image">
+      <div id="previewImage" class="preview"></div>
+   </div>
 </div>
 
 <div id="openVideo" class="modalDialog">
-	<div>
-		<a href="#close" title="Close" class="close" onclick="emptyInputField()">X</a>
-		<h2>Nouvelle vidéo</h2>
-		<p>Entrer le chemin de la vidéo :</p>
-		<input type="text" name="videoInput" placeholder="chemin/de/la/video">
-		<div class="button">Prévisualiser</div>
-	</div>
+   <div>
+      <a href="#close" title="Close" class="close">X</a>
+      <h2>Nouvelle vidéo</h2>
+      <p>Entrer le chemin de la vidéo :</p>
+      <input type="text" class="dialogInput" id="videoInput" placeholder="chemin/de/la/video">
+      <div id="previewVideo" class="preview"></div>
+   </div>
 </div>
 
+
 <div id="openBarChartH" class="modalDialog">
-	<div>
-		<a href="#close" title="Close" class="close">X</a>
-		<h2>Ajout d'un diagramme horizontal</h2>
-		<p>Il va falloir réfléchir sur l'interface</p>
-		<input type="text" name="videoInput" placeholder="chemin/de/la/video">
-		<div class="button">Prévisualiser</div>
-	</div>
-</div>
+    <div>
+      <a href="#close" title="Close" class="close">X</a>
+      <h2>Ajout d'un diagramme horizontal</h2>
+      <p>Entrer les données :</p>
+      <div id="chartH"></div>
+      <div id="previewChartH" class="preview"></div>
+   </div>
+</div> 

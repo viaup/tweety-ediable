@@ -3,66 +3,21 @@
 
 function dialogHTML(){
  
-    $("head").append($("<link rel='stylesheet' href='menu_dialog/menu_dialog.css' type='text/css' media='screen' />"));
-
-    $("body").append(
-      '<div style="display:none; "   id="contextMenu">' +
-        
-            '<div class="ContextTitle">Ajouter :</div>' +
-            '<div class="ContextItem"><a href="#openImage" class="ContextLink">Image</a></div>' +
-            '<div class="ContextItem"><a href="#openVideo" class="ContextLink">Video</a></div>' +
-            '<div class="ContextItem"><a href="#openBarChartH" class="ContextLink">Diagramme horizontal</a></div>' +
-        '</div>' +
-        
-        '<div id="openImage" class="modalDialog">' +
-	       '<div>' +
-		      '<a href="#close" title="Close" class="close">X</a>' +
-		      '<h2>Nouvelle image</h2>' +
-		      '<p>Entrer le chemin de l\'image :</p>' +
-		      '<input type="text" class="dialogInput" id="imageInput" placeholder="chemin/de/l\'image">' +
-		      '<div id="previewImage" class="preview"></div>' +
-	       '</div>' +
-        '</div>' +
-
-        '<div id="openVideo" class="modalDialog">' +
-	       '<div>' +
-		      '<a href="#close" title="Close" class="close">X</a>' +
-		      '<h2>Nouvelle vidéo</h2>' +
-		      '<p>Entrer le chemin de la vidéo :</p>' +
-		      '<input type="text" class="dialogInput" id="videoInput" placeholder="chemin/de/la/video">' +
-		      '<div id="previewVideo" class="preview"></div>' +
-	       '</div>' +
-        '</div>' +
-
-        
-        '<div id="openBarChartH" class="modalDialog">' +
-            '<div>' +
-              '<a href="#close" title="Close" class="close">X</a>' +
-              '<h2>Ajout d\'un diagramme horizontal</h2>' +
-              '<p>Entrer les données :</p>' +
-              '<div id="chartH"></div>' +
-              '<div id="previewChartH" class="preview"></div>' +
-           '</div>' +
-        '</div>' +
+    $("head").prepend($("<link rel='stylesheet' href='no-cms/menu_dialog/menu_dialog.css' type='text/css' media='screen' />"));
+    $("body").attr("oncontextmenu", "return false");
     
-        '<script id="barChartHTemplate" type="text/x-jsrender">' +
-                    '<span class ="chartHName"> donnée: </span><input type="text" class="chartHNameInput" value="{{>name}}">' +
-                    '<span class ="chartHValue"> valeur : </span><input type="text" class="chartHValueInput" value="{{>value}}">' +
-                    '<span class ="chartHLabel"> étiquette : </span><input type="text" class="chartHLabelInput" value="{{>label}}"><br/>' +
-  
-            
-        '</script>'
-
-
-    );
-    renderChartHTemplate();
-         
+    $.get( "no-cms/menu_dialog/menu_dialog.html", function( data ) {
+      $( "body" ).append( data );
+            renderChartHForm();   
+    dialogEvents();
+    });
+    
 
 
 }
 
 function dialogEvents(){
-    
+   
     $( ".modalDialog" ).on("mousedown", function() {
       HideMenu('contextMenu');
     });
@@ -92,7 +47,7 @@ function dialogEvents(){
 
 
 function selectImage(el){
-     
+    
    $( "#imageInput" ).keyup( function(event) {
       if ($("#previewImage").children()[0]){ //s'il y a un bouton
         $("#imagebtn").text("Prévisualiser");
@@ -167,7 +122,8 @@ function selectChartH(el){
                   line = {name : names.eq(i).val() , value : parseInt(values.eq(i).val()) , label : label.eq(i).val() };
                   data[i]= line;      
               }
-              renderChartH(el, data);
+              renderChartH(el);
+
               $(".close")[0].click();
               $(".close").mousedown();
 
@@ -180,64 +136,56 @@ function selectChartH(el){
 
 //render templates
 
-function renderChartHTemplate(){
-     
-        	var chartHData = [
-						{name: '#HabsDC', value: 525, label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas diam'},
-						{name: '#polmtl', value: 213, label: 'Arcu, dictum tincidunt interdum quis'},
-						{name: '#CMJ2015', value: 110, label: 'Lobortis at lacus.'},
-						{name: '#Montreal', value: 74, label: 'Aliquam sit amet velit ac urna auctor'},
-						{name: '#Sotchi2014', value: 53, label: 'Sagittis sit amet ut nisl.'},
-						{name: '#Montréal', value: 53, label: 'Nullam aliquet turpis eget arcu molestie viverra.'},
-						{name: '#montreal', value: 46, label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'},
-						{name: '#RIP', value: 32, label: 'Maecenas diam arcu, dictum tincidunt'},
-						{name: '#cmmtl', value: 23, label: 'Interdum quis, lobortis at lacus'},
-						{name: '#polqc', value: 23, label: 'Aliquam sit amet'}
-        	];
 
-    var html = $("#barChartHTemplate").render(chartHData);
-//    console.log($("#chartH"));
-    $("#chartH").html(html);
+
+function renderChartH(el){
+ 
+        $(el).append("<div class='chart-container' id='visu-horaire2'></div>");
+    
+var dataTweetsHour = [
+    {
+        name: 'Tweets par heure du jour',
+        values: [218, 87, 14, 13, 254, 45, 23, 12],
+        labels: [218, 87, 14, 13, 254, 45, 23, 12]
+    }
+];
+
+var hours = moby.init({
+    containerSelector: '#visu-horaire2'
+})
+    .setConfig({
+        type: 'bar2D',
+        tooltipFormatter: function(d, i) {
+            return d.values + ' tweets';
+        },
+        labelFormatter: function(d, i) {
+            return '<span class="label-title"> ' + d.labels[i] + '</span>';
+        }
+    })
+    .render(dataTweetsHour);
+     
+
 
 }
 
-function renderChartH(el, data){
-     
-        	var dataHashtags = [
-						{name: '#HabsDC', value: 525, label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas diam'},
-						{name: '#polmtl', value: 213, label: 'Arcu, dictum tincidunt interdum quis'},
-						{name: '#CMJ2015', value: 110, label: 'Lobortis at lacus.'},
-						{name: '#Montreal', value: 74, label: 'Aliquam sit amet velit ac urna auctor'},
-						{name: '#Sotchi2014', value: 53, label: 'Sagittis sit amet ut nisl.'},
-						{name: '#Montréal', value: 53, label: 'Nullam aliquet turpis eget arcu molestie viverra.'},
-						{name: '#montreal', value: 46, label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'},
-						{name: '#RIP', value: 32, label: 'Maecenas diam arcu, dictum tincidunt'},
-						{name: '#cmmtl', value: 23, label: 'Interdum quis, lobortis at lacus'},
-						{name: '#polqc', value: 23, label: 'Aliquam sit amet'}
-        	];
-            
-            console.log(dataHashtags);
-            console.log(data);
-           
+function renderChartHForm(){
+    var dataTweetsHour = 
+    {
+        name: 'Tweets par heure du jour',
+        values: [218, 87, 14, 13, 2, 45, 23, 12],
+        labels: [0, 1, 2, 3, 4, 5, 45, 12]
+    };
 
-					var bars = listVis()
-						.setConfig({
-							containerSelector: el,
-							height: 30,
-							type: 'bar'
-						})
-						.render(data.map(function(){ return {}; }));
-            
-         
+    var dataValues = dataTweetsHour.values;
+    var dataLabels = dataTweetsHour.labels;
+    
+    for (i=0; i< dataValues.length; i++){
+        
+        $("#chartH").append('<span class ="chartHName"> donnée: </span><input type="text" class="chartHNameInput" value="' + dataValues[i] + '">')
+                    .append('<span class ="chartHLabel"> étiquette : </span><input type="text" class="chartHLabelInput" value="' + dataLabels[i] + '"><br/>')
+    
+    }
 
-					var renderDebounced = listVis.debounce(function(){ bars.render(data); }, 300);
-					var containerPosY = $(el).position().top;
-					$(window).on('scroll', function() {
-						var scrollY = window.pageYOffset + $(window).height();
-						if(scrollY > containerPosY) {
-							renderDebounced();
-						}
-					});
 
 }
 

@@ -156,6 +156,15 @@ input{
     width: 500px;
 }
 
+#editable{
+    position:fixed;
+    background-color: white;
+    padding-left: 20px;
+    top:10px;
+    left:0px;
+    width:100px;
+    z-index: 999;
+}
 
 
 
