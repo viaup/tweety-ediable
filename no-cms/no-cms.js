@@ -13,7 +13,7 @@ window.onload = function(event){
             $( ".modalDialog" ).removeAttr("contenteditable");
             $( "#contextMenu" ).removeAttr("contenteditable");
             $("#editable").css("color", "grey").html("Modifier");
-//           saveToGitHub();
+           saveToGitHub();
         }
         else{
 
@@ -41,7 +41,6 @@ function saveToGitHub(){
     var reponame= "tweety-ediable";
     var content = document.documentElement.outerHTML;
     var contentEncoded = unescape( encodeURIComponent(content)) ;
-    console.log(contentEncoded);
 
     
     var github = new Github({
@@ -52,13 +51,11 @@ function saveToGitHub(){
     
     var repo = github.getRepo(username, reponame);
     
-    repo.remove('gh-pages', 'test.html', function(err) {
-        
-        repo.write('gh-pages', 'test.html', contentEncoded, 'YOUR_COMMIT_MESSAGE', function(err) {console.log("write avec succès si pas d'erreur : " + err)});    
-        console.log("remove avec succès si pas d'erreur : " + err)
+    var commitMsg = prompt("Sauvegarder sous :");
+//    repo.remove('gh-pages', 'test.html', function(err) {  
+//    repo.write('gh-pages', 'test.html', contentEncoded, commitMsg, function(err) {console.log("write avec succès si pas d'erreur : " + err)});    
     
     
-    });
     
 
 }
